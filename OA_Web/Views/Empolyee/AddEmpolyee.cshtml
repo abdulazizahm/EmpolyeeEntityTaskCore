@@ -1,0 +1,90 @@
+﻿@using OA_DAL.Models;
+@model OA_Service.ViewModels.EmpolyeeViewModel
+
+@{
+    ViewData["Title"] = "AddEmpolyee";
+}
+
+<h1>Add New Empolyee</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="AddEmpolyee">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+            <label asp-for="Id" class="control-label"></label>
+            <input asp-for="Id" class="form-control" />
+            <span asp-validation-for="Id" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SSN" class="control-label"></label>
+                <input asp-for="SSN" class="form-control" />
+                <span asp-validation-for="SSN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Job" class="control-label"></label>
+                <select asp-for="Job"
+                        class="form-control"
+                        asp-items="Html.GetEnumSelectList<JobType>()">
+                    <option>Select type ...</option>
+                </select>
+                @*<input asp-for="Job" class="form-control" />*@
+                <span asp-validation-for="Job" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Salary" class="control-label"></label>
+                <input asp-for="Salary" class="form-control" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date_hired" class="control-label"></label>
+                <input asp-for="Date_hired" class="form-control" />
+                <span asp-validation-for="Date_hired" class="text-danger"></span>
+            </div>
+            <div class="row">
+                @*<label asp-for="Image" class="control-label">Image</label><br>*@
+                <div class="form-group imageContainer">
+                    <div>
+                        <img src="~/images/default.jpg" id="Image" />
+                    </div>
+                    <input type="file" asp-for="FormFileImage" class="form-control" onchange="UploadImage(this)" />
+                    <span asp-validation-for="FormFileImage" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add Empolyee" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        function UploadImage(fileInput) {
+            alert("true");
+            var fileToUpload = fileInput.files.item(0);
+            var filereader = new FileReader();
+            filereader.onload = (event) => {
+                document.getElementById("Image").src = event.target.result;
+            }
+            filereader.readAsDataURL(fileToUpload)
+        }
+    </script>
+
+}
